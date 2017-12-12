@@ -1,0 +1,47 @@
+{
+  "name": "liberal-buffer",
+  "description": "Liberal Buffer readable and writable continuously",
+  "version": "0.1.0",
+  "author": "@kawanet",
+  "bugs": {
+    "url": "https://github.com/kawanet/liberal-buffer/issues"
+  },
+  "dependencies": {
+    "nyc": "^11.3.0"
+  },
+  "devDependencies": {
+    "@types/mocha": "^2.2.44",
+    "@types/node": "^8.0.57",
+    "eslint": "^4.13.1",
+    "mocha": "^4.0.1",
+    "nyc": "^11.3.0"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 6
+    },
+    "env": {
+      "node": true,
+      "commonjs": true
+    }
+  },
+  "homepage": "https://github.com/kawanet/liberal-buffer#readme",
+  "keywords": [
+    "buffer"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kawanet/liberal-buffer.git"
+  },
+  "scripts": {
+    "eslint": "./node_modules/.bin/eslint .",
+    "mocha": "./node_modules/.bin/mocha test",
+    "test": "npm run eslint && npm run mocha"
+  },
+  "typings": "typings/liberal-buffer.d.ts"
+}
