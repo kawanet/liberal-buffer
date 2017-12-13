@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var assert = require("assert");
-var _1 = require("../");
-var TITLE = __filename.split("/").pop();
-describe(TITLE, function () {
-    it("WritableBuffer", function () {
-        var writable = new _1.WritableBuffer();
+const assert = require("assert");
+const _1 = require("../");
+const TITLE = __filename.split("/").pop();
+describe(TITLE, () => {
+    it("WritableBuffer", () => {
+        const writable = new _1.WritableBuffer();
         assert.equal(writable.writeInt8(1), 1);
         assert.equal(atos(writable.toBuffer()), atos([1]));
         assert.equal(writable.writeInt16BE(0x0203), 2);
@@ -36,7 +36,7 @@ describe(TITLE, function () {
     });
 });
 function atos(array) {
-    return [].map.call(array, function (v) {
+    return [].map.call(array, (v) => {
         return (v > 15 ? "" : "0") + v.toString(16);
     }).join("-");
 }

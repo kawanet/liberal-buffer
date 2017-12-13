@@ -59,7 +59,7 @@ describe(TITLE, () => {
         assert.equal(atos(IJ), stos("IJ"));
 
         // UInt8, Int8
-        readable.push([255,255]);
+        readable.push([255, 255]);
         assert.equal(readable.readUInt8(), 255);
         assert.equal(readable.readInt8(), -1);
     });

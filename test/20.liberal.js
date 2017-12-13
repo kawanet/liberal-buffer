@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var assert = require("assert");
-var _1 = require("../");
-var TITLE = __filename.split("/").pop();
-describe(TITLE, function () {
-    it("ReadableBuffer", function () {
-        var readable = new _1.ReadableBuffer();
+const assert = require("assert");
+const _1 = require("../");
+const TITLE = __filename.split("/").pop();
+describe(TITLE, () => {
+    it("ReadableBuffer", () => {
+        const readable = new _1.ReadableBuffer();
         // LiberalBuffer methods
         assert.equal(typeof readable.begin, "function");
         assert.equal(typeof readable.end, "function");
@@ -31,8 +31,8 @@ describe(TITLE, function () {
         assert.equal(typeof readable.readDoubleLE, "function");
         assert.equal(typeof readable.readDoubleBE, "function");
     });
-    it("WritableBuffer", function () {
-        var writable = new _1.WritableBuffer();
+    it("WritableBuffer", () => {
+        const writable = new _1.WritableBuffer();
         // LiberalBuffer methods
         assert.equal(typeof writable.begin, "function");
         assert.equal(typeof writable.end, "function");

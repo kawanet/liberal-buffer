@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var assert = require("assert");
-var _1 = require("../");
-var TITLE = __filename.split("/").pop();
-describe(TITLE, function () {
-    it("ReadableBuffer", function () {
-        var readable = new _1.ReadableBuffer();
+const assert = require("assert");
+const _1 = require("../");
+const TITLE = __filename.split("/").pop();
+describe(TITLE, () => {
+    it("ReadableBuffer", () => {
+        const readable = new _1.ReadableBuffer();
         readable.push(Buffer.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]));
         assert.equal(readable.readInt8(), 0x01);
         readable.begin();
@@ -27,17 +27,17 @@ describe(TITLE, function () {
         assert.throws(readable.readInt8.bind(readable));
         readable.empty();
         readable.push(Buffer.from("ABCD"));
-        var AB = readable.readBuffer(2);
+        const AB = readable.readBuffer(2);
         assert.equal(atos(AB), stos("AB"));
-        var CD = readable.readString(2);
+        const CD = readable.readString(2);
         assert.equal(CD, "CD");
         readable.push(Buffer.from("EFG"));
         readable.push(Buffer.from("HIJ"));
-        var EF = readable.readBuffer(2);
+        const EF = readable.readBuffer(2);
         assert.equal(atos(EF), stos("EF"));
-        var GH = readable.readString(2);
+        const GH = readable.readString(2);
         assert.equal(GH, "GH");
-        var IJ = readable.readBuffer(2);
+        const IJ = readable.readBuffer(2);
         assert.equal(atos(IJ), stos("IJ"));
         // UInt8, Int8
         readable.push([255, 255]);
@@ -46,12 +46,12 @@ describe(TITLE, function () {
     });
 });
 function stos(string) {
-    return atos([].map.call(string, function (v) {
+    return atos([].map.call(string, (v) => {
         return v.charCodeAt(0);
     }));
 }
 function atos(array) {
-    return [].map.call(array, function (v) {
+    return [].map.call(array, (v) => {
         return (v > 15 ? "" : "0") + v.toString(16);
     }).join("-");
 }
