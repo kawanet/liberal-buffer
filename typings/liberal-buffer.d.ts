@@ -42,7 +42,7 @@ declare class LiberalBuffer {
 
 export declare class ReadableBuffer extends LiberalBuffer {
 
-    protected reserve(length: number, callback?: (buffer: Buffer, start: number, end?: number) => void): void;
+    protected reserve(length: number, callback?: (buffer: Buffer, start: number, end?: number) => any): any;
 
     readBuffer(length: number): Buffer;
 
@@ -78,6 +78,7 @@ export declare class ReadableBuffer extends LiberalBuffer {
 }
 
 export declare class WritableBuffer extends LiberalBuffer {
+
     protected reserve(length: number, callback?: (buffer: Buffer, offset: number, value?: any) => any, value?: any): any;
 
     insertBuffer(value: Buffer, start?: number, end?: number): number;
