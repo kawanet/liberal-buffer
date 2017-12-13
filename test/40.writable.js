@@ -29,6 +29,10 @@ describe(TITLE, function () {
         assert.equal(writable.insertBuffer([3, 4]), 2);
         assert.equal(writable.writeBuffer([5, 6]), 2);
         assert.equal(atos(writable.toBuffer()), atos([1, 2, 3, 4, 5, 6]));
+        // UInt8, Int8
+        writable.writeUInt8(255);
+        writable.writeInt8(-1);
+        assert.equal(atos(writable.toBuffer()), atos([255, 255]));
     });
 });
 function atos(array) {

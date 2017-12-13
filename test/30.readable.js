@@ -39,6 +39,10 @@ describe(TITLE, function () {
         assert.equal(GH, "GH");
         var IJ = readable.readBuffer(2);
         assert.equal(atos(IJ), stos("IJ"));
+        // UInt8, Int8
+        readable.push([255, 255]);
+        assert.equal(readable.readUInt8(), 255);
+        assert.equal(readable.readInt8(), -1);
     });
 });
 function stos(string) {
