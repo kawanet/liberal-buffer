@@ -1,20 +1,36 @@
-# UNDER DEVELOPMENT
+# UNDER DEVELOPMENT - Liberal Buffer readable and writable continuously
 
 [![Build Status](https://travis-ci.org/kawanet/liberal-buffer.svg?branch=master)](https://travis-ci.org/kawanet/liberal-buffer)
 
 ### Synopsis
 
 ```js
-const ReadableBuffer = require("liberal-buffer").ReadableBuffer;
+const {ReadableBuffer} = require("liberal-buffer");
 
-const buffer = new ReadableBuffer();
+const readable = new ReadableBuffer();
 
-buffer.append(Buffer.from([0xFF, 0x73, 0x6f, 0x6d, 0x65, 0x76, 0x61, 0x6c, 0x75, 0x65]));
+readable.push(Buffer.from([1, 2, 3]));
+readable.push(Buffer.from([4, 5, 65]));
+readable.push(Buffer.from([66, 67, 68]));
 
-console.warn(buffer.readUInt8()); // => 255
-console.warn(buffer.readString(4)); // => "some"
-console.warn(buffer.readString(5)); // => "value"
+console.warn(readable.readUInt8()); // => 0x01
+console.warn(readable.readUInt32BE()); // => 0x02030405
+console.warn(readable.readString(4)); // => "ABCD"
 ```
+
+```js
+const {WritableBuffer} = require("liberal-buffer");
+
+const writable = new WritableBuffer();
+
+writable.writeUInt8(0x01);
+writable.writeUInt32BE(0x02030405);
+writable.writeString("ABCD");
+
+console.warn(writable.toBuffer()); // => <Buffer 01 02 03 04 05 41 42 43 44>
+```
+
+See [liberal-buffer.d.ts](https://github.com/kawanet/liberal-buffer/blob/master/typings/liberal-buffer.d.ts) for more detail.
 
 ### GitHub
 
