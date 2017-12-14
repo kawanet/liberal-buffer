@@ -39,15 +39,15 @@ describe(TITLE, () => {
         // RangeError: Out of range
         assert.throws(() => readable.readInt8());
 
+        // single input - multiple output
         readable.empty();
         readable.push(Buffer.from("ABCD"));
-
         assert.equal(atos(readable.readBuffer(2)), stos("AB"));
         assert.equal(readable.readString(2), "CD");
 
+        // multiple fragmented input - multiple input
         readable.push(Buffer.from("EFG"));
         readable.push(Buffer.from("HIJ"));
-
         assert.equal(atos(readable.readBuffer(2)), stos("EF"));
         assert.equal(readable.readString(2), "GH");
         assert.equal(atos(readable.readBuffer(2)), stos("IJ"));
@@ -56,6 +56,32 @@ describe(TITLE, () => {
         readable.push([255, 255]);
         assert.equal(readable.readUInt8(), 255);
         assert.equal(readable.readInt8(), -1);
+
+        // multiple input - single output
+        readable.push(Buffer.from("ab"));
+        readable.push(Buffer.from("cd"));
+        readable.push(Buffer.from("ef"));
+        assert.equal(readable.readString(6), "abcdef");
+
+        // multiple input - multiple output
+        readable.push(Buffer.from("gh"));
+        readable.push(Buffer.from("ij"));
+        readable.push(Buffer.from("kl"));
+        assert.equal(readable.readString(1), "g");
+        assert.equal(readable.readString(4), "hijk");
+        assert.equal(readable.readString(1), "l");
+
+        // zero length input
+        readable.push(Buffer.from(""));
+        readable.push(Buffer.from(""));
+        readable.push(Buffer.from("X"));
+        readable.push(Buffer.from(""));
+        readable.push(Buffer.from(""));
+        readable.push(Buffer.from("Y"));
+        readable.push(Buffer.from(""));
+        readable.push(Buffer.from(""));
+        readable.push(Buffer.from("Z"));
+        assert.equal(readable.readString(3), "XYZ");
     });
 });
 
