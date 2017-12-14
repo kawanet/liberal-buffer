@@ -20,13 +20,13 @@ describe(TITLE, () => {
         assert.equal(readable.readInt32BE(), 0x06070809);
         assert.equal(readable.readUInt32BE(), 0x0a0b0c0d);
 
-        // Error: BUFFER_SHORTAGE
-        assert.throws(readable.readInt8.bind(readable));
+        // RangeError: Out of range
+        assert.throws(() => readable.readInt8());
 
         readable.rollback();
 
         // Error: Nothing to rollback before started
-        assert.throws(readable.rollback.bind(readable));
+        assert.throws(() => readable.rollback());
 
         // restart
         assert.equal(readable.readInt16LE(), 0x0302);
@@ -35,28 +35,22 @@ describe(TITLE, () => {
         assert.equal(readable.readUInt32LE(), 0x0d0c0b0a);
 
         readable.end();
-        assert.throws(readable.readInt8.bind(readable));
+
+        // RangeError: Out of range
+        assert.throws(() => readable.readInt8());
 
         readable.empty();
         readable.push(Buffer.from("ABCD"));
 
-        const AB = readable.readBuffer(2);
-        assert.equal(atos(AB), stos("AB"));
-
-        const CD = readable.readString(2);
-        assert.equal(CD, "CD");
+        assert.equal(atos(readable.readBuffer(2)), stos("AB"));
+        assert.equal(readable.readString(2), "CD");
 
         readable.push(Buffer.from("EFG"));
         readable.push(Buffer.from("HIJ"));
 
-        const EF = readable.readBuffer(2);
-        assert.equal(atos(EF), stos("EF"));
-
-        const GH = readable.readString(2);
-        assert.equal(GH, "GH");
-
-        const IJ = readable.readBuffer(2);
-        assert.equal(atos(IJ), stos("IJ"));
+        assert.equal(atos(readable.readBuffer(2)), stos("EF"));
+        assert.equal(readable.readString(2), "GH");
+        assert.equal(atos(readable.readBuffer(2)), stos("IJ"));
 
         // UInt8, Int8
         readable.push([255, 255]);
