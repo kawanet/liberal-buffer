@@ -34,6 +34,32 @@ describe(TITLE, () => {
         writable.writeInt8(-1);
         assert.equal(atos(writable.toBuffer()), atos([255, 255]));
     });
+    it("insertBuffer", () => {
+        let writable;
+        writable = new _1.WritableBuffer();
+        assert.equal(writable.insertBuffer([1, 2]), 2);
+        assert.equal(writable.insertBuffer([3, 4]), 2);
+        assert.equal(atos(writable.toBuffer()), atos([1, 2, 3, 4]));
+        writable = new _1.WritableBuffer();
+        assert.equal(writable.insertBuffer([]), 0);
+        assert.equal(writable.insertBuffer([5, 6]), 2);
+        assert.equal(writable.insertBuffer([]), 0);
+        assert.equal(atos(writable.toBuffer()), atos([5, 6]));
+        writable = new _1.WritableBuffer();
+        assert.equal(writable.insertBuffer([]), 0);
+        assert.equal(writable.insertBuffer([]), 0);
+        assert.equal(atos(writable.toBuffer()), atos([]));
+        writable = new _1.WritableBuffer();
+        assert.equal(writable.writeBuffer([]), 0);
+        assert.equal(writable.writeBuffer([7, 8]), 2);
+        assert.equal(writable.writeBuffer([]), 0);
+        assert.equal(atos(writable.toBuffer()), atos([7, 8]));
+        writable = new _1.WritableBuffer();
+        assert.equal(writable.insertBuffer([]), 0);
+        assert.equal(writable.writeBuffer([9, 10]), 2);
+        assert.equal(writable.insertBuffer([]), 0);
+        assert.equal(atos(writable.toBuffer()), atos([9, 10]));
+    });
 });
 function atos(array) {
     return [].map.call(array, (v) => {
